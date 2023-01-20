@@ -61,6 +61,7 @@ export default class Character implements Fighter {
 
   public attack(enemy: Fighter | SimpleFighter): void {
     enemy.receiveDamage(this._strength);
+    console.log(`${this._name} attacking`);
   }
 
   public levelUp(): void {
@@ -82,13 +83,13 @@ export default class Character implements Fighter {
 
     let lp = this._lifePoints;
 
-    const calcDmg = damage > 0
-      ? lp - damage
-      : lp - 1;
-    
-    if (calcDmg < 1) lp = -1;
+    if (damage > 0) lp -= damage;
+    else lp -= 1;
+    if (lp < 1) lp = -1;
 
     this._lifePoints = lp;
+
+    console.log(`${this._name} life points: ${this._lifePoints}`);
 
     return this._lifePoints;
   }
